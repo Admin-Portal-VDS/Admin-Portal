@@ -1,6 +1,8 @@
 <template>
+  <div id="app">
   <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Hello World!" />
+  </div>
 </template>
 
 <script>
@@ -24,3 +26,4 @@ export default {
   margin-top: 60px;
 }
 </style>
+
