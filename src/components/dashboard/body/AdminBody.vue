@@ -1,10 +1,10 @@
 <template>
-  <main id="admin-body">
-    <HeadingComponent />
+  <main id="admin-body" class="main">
     <PrimaryButton />
     <SecondaryButton />
     <DropdownComponent />
-    <TableComponent />
+    <HeadingComponent />
+    <TableComponent :columns="columns" :data="tableData" />
   </main>
 </template>
 
@@ -14,6 +14,7 @@ import HeadingComponent from '@/components/common/HeadingComponent.vue';
 import PrimaryButton from '@/components/common/PrimaryButton.vue';
 import SecondaryButton from '@/components/common/SecondaryButton.vue';
 import DropdownComponent from '@/components/common/DropdownComponent.vue';
+import tableData from '@/json/tableData.json';
 export default {
   name: 'AdminBody',
   components: {
@@ -23,6 +24,11 @@ export default {
     HeadingComponent,
     TableComponent,
   },
+  data() {
+    return {
+      ...tableData,
+    };
+  },
 };
 </script>
 
@@ -31,5 +37,9 @@ export default {
   background: #f2f2f2;
   flex: 1;
   height: 100vh;
+}
+.main {
+  height: 100vh;
+  padding: 24px 32px;
 }
 </style>
