@@ -58,18 +58,11 @@ describe('DropdownComponent.vue', () => {
   });
 
   it('accepts props and passes them correctly', () => {
-    const wrapper = mount(DropDownComponent, {
-      props: { dropDownTitle: dropDownTitle, dropDownList: dropDownList },
-    });
-
     expect(wrapper.props('dropDownTitle')).toBe(dropDownTitle);
     expect(wrapper.props('dropDownList')).toStrictEqual(dropDownList);
   });
 
   it('matches snapshot', () => {
-    const wrapper = mount(DropDownComponent, {
-      propsData: { dropDownTitle: 'Snapshot Test', dropDownList: dropDownList },
-    });
     expect(wrapper.html()).toMatchSnapshot();
   });
 });

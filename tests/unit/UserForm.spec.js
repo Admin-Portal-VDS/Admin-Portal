@@ -21,8 +21,8 @@ describe('UserForm.vue', () => {
       expect(wrapper.find(`#${field.id}`).exists()).toBe(true);
     });
 
-    expect(wrapper.find('#groups').exists()).toBe(true);
-    expect(wrapper.find('#userType').exists()).toBe(true);
+    expect(wrapper.find('[data-id="groups"]').exists()).toBe(true);
+    expect(wrapper.find('[data-id="userType"]').exists()).toBe(true);
   });
 
   test('renders permissions checkboxes', () => {
@@ -74,7 +74,7 @@ describe('UserForm.vue', () => {
       expect(input.attributes('required')).toBeDefined();
     });
 
-    const userType = wrapper.find('#userType');
+    const userType = wrapper.find('[data-id="userType"]');
     expect(userType.attributes('required')).toBeDefined();
   });
 
@@ -87,19 +87,19 @@ describe('UserForm.vue', () => {
   });
 
   test('updates v-model when input changes', async () => {
-    const input = wrapper.find('#firstName');
+    const input = wrapper.find('[data-id="firstName"]');
     await input.setValue('John');
     expect(wrapper.vm.form.firstName).toBe('John');
   });
 
   test('updates selected group in form data', async () => {
-    const select = wrapper.find('#groups');
+    const select = wrapper.find('[data-id=groups]');
     await select.setValue('group2');
     expect(wrapper.vm.form.groups).toBe('group2');
   });
 
   test('updates user type in form data', async () => {
-    const select = wrapper.find('#userType');
+    const select = wrapper.find('[data-id="userType"]');
     await select.setValue('billingAdmin');
     expect(wrapper.vm.form.userType).toBe('billingAdmin');
   });
