@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils';
-import HeadingComponent from '@/components/common/HeadingComponent.vue';
+import PageHeader from '@/components/common/PageHeader.vue';
 
-describe('HeadingComponent.vue', () => {
+describe('PageHeader.vue', () => {
   let heading = 'Hello World';
   let wrapper;
   beforeEach(() => {
-    wrapper = mount(HeadingComponent, {
+    wrapper = mount(PageHeader, {
       propsData: {
         heading,
       },
@@ -22,14 +22,14 @@ describe('HeadingComponent.vue', () => {
   });
   it('accepts props and passes them correctly', () => {
     let heading = 'Heading';
-    const wrapper = mount(HeadingComponent, {
+    const wrapper = mount(PageHeader, {
       propsData: { heading },
     });
     expect(wrapper.props('heading')).toBe(heading);
   });
 
   it('matches snapshot', () => {
-    const wrapper = mount(HeadingComponent, {
+    const wrapper = mount(PageHeader, {
       propsData: {
         heading: 'Snapshot Test', // Correct prop name
       },
