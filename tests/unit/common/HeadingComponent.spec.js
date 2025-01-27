@@ -2,19 +2,26 @@ import { mount } from '@vue/test-utils';
 import HeadingComponent from '@/components/common/HeadingComponent.vue';
 
 describe('HeadingComponent.vue', () => {
-  it('renders the heading with the correct text', () => {
-    const heading = 'Hello World';
-    const wrapper = mount(HeadingComponent, {
-      props: {
+  let heading = 'Hello World';
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(HeadingComponent, {
+      propsData: {
         heading,
       },
     });
+  });
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
+  it('renders the heading with the correct text', () => {
     const title = wrapper.find('[data-id="heading"]');
     expect(title.exists()).toBe(true);
     expect(title.text()).toBe(heading);
   });
   it('accepts props and passes them correctly', () => {
-    const heading = 'Test Button';
+    let heading = 'Heading';
     const wrapper = mount(HeadingComponent, {
       propsData: { heading },
     });
