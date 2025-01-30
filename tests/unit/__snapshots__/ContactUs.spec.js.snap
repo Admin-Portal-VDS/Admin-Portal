@@ -895,7 +895,6 @@ exports[`ContactUs.vue matches snapshot after showing validation errors 1`] = `
   <!--v-if-->
 </div>
 `;
-
 exports[`ContactUs.vue matches snapshot after successful form submission 1`] = `
 <div class="background-container" data-id="background-container">
   <!-- Form Section -->
@@ -907,7 +906,6 @@ exports[`ContactUs.vue matches snapshot after successful form submission 1`] = `
   </div>
 </div>
 `;
-
 exports[`ContactUs.vue matches the initial snapshot 1`] = `
 <div class="background-container" data-id="background-container">
   <!-- Form Section -->

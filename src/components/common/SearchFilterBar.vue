@@ -60,7 +60,11 @@
         :buttonName="changeSuperUserButton"
         class="change-user-button"
       />
-      <PrimaryButton :buttonName="addNewButton" class="add-new-button" />
+      <PrimaryButton
+        @click="handleAddNewClick"
+        :buttonName="addNewButton"
+        class="add-new-button"
+      />
     </div>
   </div>
 </template>
@@ -71,7 +75,7 @@ import DropdownComponent from '@/components/common/DropdownComponent.vue';
 import CheckBoxDropDown from '@/components/common/CheckBoxDropDown.vue';
 
 export default {
-  name: 'SearchBar',
+  name: 'SearchFilterBar',
   components: { DropdownComponent, PrimaryButton, CheckBoxDropDown },
   data() {
     return {
@@ -119,10 +123,15 @@ export default {
       });
     },
     handleDropdownOption(optionKey) {
-      console.log('Selected Option:', optionKey);
+      if (optionKey === 'add') {
+        this.$router.push('/add-bulk');
+      }
     },
     handleSelectedOptions(selected) {
       this.selectedOptions = selected;
+    },
+    handleAddNewClick() {
+      return this.$router.push('/add-new');
     },
   },
 };
