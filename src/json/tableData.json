@@ -92,5 +92,97 @@
       "itemLocation": "PID1234",
       "changeSummary": "Jane Smith"
     }
+  ],
+  "groupColumn": [
+    { "key": "groupName", "label": "Group Name" },
+    { "key": "description", "label": "Descripton" }
+  ],
+  "groupData": [
+    {
+      "groupName": "Admin",
+      "description": "Administrators with full access to the system"
+    },
+    {
+      "groupName": "Editors",
+      "description": "Users who can modify content but have limited access to settings"
+    },
+    {
+      "groupName": "Viewers",
+      "description": "Read-only users with access to view data"
+    },
+    {
+      "groupName": "Auditors",
+      "description": "Users responsible for reviewing system changes and logs"
+    }
+  ],
+
+  "permissionColumn": [
+    { "key": "userType", "label": "Group Name" },
+    { "key": "coutn", "label": "Descripton" },
+    { "key": "roleType", "label": "Role Type" }
+  ],
+  "permissionData": [
+    {
+      "userType": "Admin",
+      "coutn": "Full system access",
+      "roleType": "Superuser"
+    },
+    {
+      "userType": "Editors",
+      "coutn": "Can modify content but limited settings access",
+      "roleType": "Content Manager"
+    },
+    {
+      "userType": "Viewers",
+      "coutn": "Read-only access to data",
+      "roleType": "Viewer"
+    },
+    {
+      "userType": "Auditors",
+      "coutn": "Can review system logs and changes",
+      "roleType": "Compliance Officer"
+    }
+  ],
+  "extensionType": [
+    { "key": "extension", "label": "Extension" },
+    { "key": "user", "label": "User" },
+    { "key": "phoneNumber", "label": "Phone Number" },
+    { "key": "outboundCallerId", "label": "Outbound Caller ID" },
+    { "key": "extensionType", "label": "Extension Type" },
+    { "key": "location", "label": "Location" }
+  ],
+  "extensionData": [
+    {
+      "extension": "1001",
+      "user": "John Doe",
+      "phoneNumber": "+1-555-0101",
+      "outboundCallerId": "+1-800-123-4567",
+      "extensionType": "Direct",
+      "location": "Head Office"
+    },
+    {
+      "extension": "1002",
+      "user": "Jane Smith",
+      "phoneNumber": "+1-555-0102",
+      "outboundCallerId": "+1-800-123-4568",
+      "extensionType": "Direct",
+      "location": "Branch Office"
+    },
+    {
+      "extension": "2001",
+      "user": "Mike Johnson",
+      "phoneNumber": "+1-555-0201",
+      "outboundCallerId": "+1-800-123-4570",
+      "extensionType": "Shared",
+      "location": "Remote"
+    },
+    {
+      "extension": "3001",
+      "user": "Emily Davis",
+      "phoneNumber": "+1-555-0301",
+      "outboundCallerId": "+1-800-123-4575",
+      "extensionType": "VoIP",
+      "location": "Customer Support"
+    }
   ]
 }

@@ -1,22 +1,19 @@
 <template>
   <main id="admin-body" class="main">
     <PageHeader :heading="useSelectedOptionStore.selectedOptionLabel" />
-    <SectionTabs />
     <DataTable :columns="filteredColumns" :data="filteredData" />
   </main>
 </template>
 
 <script>
 import PageHeader from '@/components/common/PageHeader.vue';
-import SectionTabs from '@/components/common/SectionTabs.vue';
 import { useSelectedOptionStore } from '@/stores/selectedOption';
 import DataTable from '@/components/common/DataTable.vue';
 import tableData from '@/json/tableData.json';
 
 export default {
-  name: 'AdminBody',
+  name: 'ExtensionComponent',
   components: {
-    SectionTabs,
     PageHeader,
     DataTable,
   },
@@ -30,10 +27,10 @@ export default {
       return useSelectedOptionStore();
     },
     filteredColumns() {
-      return tableData.userColumn;
+      return tableData.extensionType;
     },
     filteredData() {
-      return tableData.userData;
+      return tableData.extensionData;
     },
   },
 };

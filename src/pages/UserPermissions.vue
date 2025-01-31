@@ -30,10 +30,10 @@ export default {
       return useSelectedOptionStore();
     },
     filteredColumns() {
-      return tableData.userColumn;
+      return tableData.permissionColumn;
     },
     filteredData() {
-      return tableData.userData;
+      return tableData.permissionData;
     },
   },
 };

@@ -25,25 +25,5 @@ exports[`SectionTabs.vue matches snapshot 1`] = `
       <div class="add-new-button"><button class="simple-button">Add New</button></div>
     </div>
   </div>
-  <div class="table-wrapper">
-    <table class="table-container">
-      <thead>
-        <tr>
-          <th data-sort="" data-id="name">Name</th>
-          <th data-sort="" data-id="age">Age</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="table-data">
-          <td data-id="0-name">Alice</td>
-          <td data-id="0-age">30</td>
-        </tr>
-        <tr class="table-data">
-          <td data-id="1-name">Bob</td>
-          <td data-id="1-age">25</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 </div>
 `;

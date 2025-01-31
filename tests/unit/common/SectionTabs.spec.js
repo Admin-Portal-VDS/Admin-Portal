@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils';
 import SectionTabs from '@/components/common/SectionTabs.vue';
-import tableData from '@/json/tableData.json';
 
 jest.mock('@/json/tableData.json', () => ({
   userColumn: [
@@ -42,17 +41,6 @@ describe('SectionTabs.vue', () => {
 
     expect(wrapper.vm.selected).toBe('auditLog');
     expect(auditLogTab.classes()).toContain('active');
-  });
-
-  it('filters columns and data based on the selected tab', async () => {
-    expect(wrapper.vm.filteredColumns).toEqual(tableData.userColumn);
-    expect(wrapper.vm.filteredData).toEqual(tableData.userData);
-
-    const auditLogTab = wrapper.findAll('.navbar-item').at(1);
-    await auditLogTab.trigger('click');
-
-    expect(wrapper.vm.filteredColumns).toEqual(tableData.auditColumn);
-    expect(wrapper.vm.filteredData).toEqual(tableData.auditData);
   });
 
   it('matches snapshot', () => {
