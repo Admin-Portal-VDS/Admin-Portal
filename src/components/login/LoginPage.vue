@@ -262,12 +262,13 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useAuth } from '@/composables/useAuth';
-import { useToast } from 'vue-toastification';
-import api from '@/services/axios';
 import { useRouter } from 'vue-router';
+import { useHttp } from '@/composables/useHttp';
+import { useToast } from '@/composables/useToast';
 
 const { setToken } = useAuth();
-const toast = useToast();
+const { request } = useHttp();
+const { success, error } = useToast();
 const router = useRouter();
 
 // Reactive state
@@ -371,27 +372,22 @@ const validateInputs = () => {
 const handleLogin = async () => {
   if (!validateInputs()) return;
   isDisabled.value = true;
+
   try {
-    const response = await api.post('/auth/login', {
+    const response = await request('post', '/auth/login', {
       email: username.value,
       password: password.value,
     });
-
-    const token = response?.data?.token;
+    const token = response?.token;
     setToken(token);
-
-    toast.success('Login Success!', {
-      position: 'top-right',
-      timeout: 3000,
+    success('Login Success!', {
       onClose: () => {
         router.push('/dashboard'), (isDisabled.value = false);
       },
     });
-  } catch (error) {
-    toast.error(error?.response?.data?.message || 'Login failed.', {
-      position: 'top-right',
-      timeout: 3000,
-    });
+  } catch (err) {
+    console.log(err);
+    error(err?.response?.data?.message || 'Login failed.');
     isDisabled.value = false;
   }
 };
@@ -400,24 +396,18 @@ const handleSignup = async () => {
   if (!validateInputs()) return;
   isDisabled.value = true;
   try {
-    await api.post('/auth/signup', {
+    await request('post', '/auth/signup', {
       email: username.value,
       password: password.value,
       confirmPassword: confirmPassword.value,
     });
-
-    toast.success('Signup Success, Please Login!', {
-      position: 'top-right',
-      timeout: 3000,
+    success('Signup Success, Please Login!', {
       onClose: () => {
         toggleForm(), (isDisabled.value = false);
       },
     });
-  } catch (error) {
-    toast.error(error?.response?.data?.message || 'Signup failed.', {
-      position: 'top-right',
-      timeout: 3000,
-    });
+  } catch (err) {
+    error(err?.response?.data?.message || 'Signup failed.');
     isDisabled.value = false;
   }
 };

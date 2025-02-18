@@ -11,7 +11,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
   // Use a single regex that ignores all node_modules except for vee-validate.
-  transformIgnorePatterns: ['/node_modules/(?!(vee-validate)/)'],
+  transformIgnorePatterns: ['/node_modules/(?!vee-validate|axios)/'],
   testMatch: [
     '**/__tests__/**/*.spec.[jt]s?(x)',
     '**/tests/unit/**/*.spec.[jt]s?(x)',

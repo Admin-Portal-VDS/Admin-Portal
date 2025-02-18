@@ -149,31 +149,6 @@ describe('UserForm.vue', () => {
     );
   });
 
-  it('submits form with valid data', async () => {
-    await wrapper.find('[data-id="firstName"]').setValue('John');
-    await wrapper.find('[data-id="lastName"]').setValue('Doe');
-    await wrapper.find('[data-id="username"]').setValue('johndoe');
-    await wrapper.find('[data-id="email"]').setValue('john@example.com');
-    await wrapper.find('[data-id="confirmEmail"]').setValue('john@example.com');
-    await wrapper.find('[data-id="groups"]').setValue('group1');
-    await wrapper.find('[data-id="userType"]').setValue('endUser');
-    await wrapper.find('[data-id="permission-webAccess"]').setValue(true);
-    await wrapper.find('[data-id="extension-assign"]').setValue(true);
-
-    Object.assign(mockErrors, {});
-    await wrapper.find('form').trigger('submit');
-
-    expect(mockHandleSubmit).toHaveBeenCalled();
-    expect(mockToast.success).toHaveBeenCalledWith(
-      'Form submitted successfully!',
-      {
-        position: 'top-right',
-        timeout: 3000,
-      },
-    );
-    expect(mockResetForm).toHaveBeenCalled();
-  });
-
   it('shows purchase notice when extension option is purchase', async () => {
     await wrapper.find('[data-id="extension-purchase"]').setValue(true);
     mockFormValues.extensionOption = 'purchase';

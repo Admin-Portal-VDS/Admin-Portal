@@ -138,11 +138,13 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { useAuth } from '@/composables/useAuth';
 import { Field, ErrorMessage, useForm } from 'vee-validate';
 import * as yup from 'yup';
 import { useToast } from 'vue-toastification';
 import CancelButton from '@/components/common/CancelButton.vue';
 import { useRouter } from 'vue-router';
+import api from '@/services/axios';
 
 export default defineComponent({
   components: { Field, ErrorMessage, CancelButton },
@@ -161,6 +163,7 @@ export default defineComponent({
   },
   setup() {
     const toast = useToast();
+    const { getToken } = useAuth();
     const schema = yup.object({
       firstName: yup
         .string()
@@ -179,6 +182,21 @@ export default defineComponent({
         .string()
         .oneOf([yup.ref('email')], 'Email must match')
         .required('Confirm email is required'),
+      password: yup
+        .string()
+        .matches(
+          /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+          'Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one special character, and one digit.',
+        )
+        .required('Password is required'),
+      confirmPassword: yup
+        .string()
+        .oneOf([yup.ref('password')], 'Password must match')
+        .matches(
+          /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+          'Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one special character, and one digit.',
+        )
+        .required('Password is required'),
       groups: yup.string().required('Please select a group'),
       userType: yup.string().required('Please select a user type'),
       extensionOption: yup.string().required('Please select an extension'),
@@ -197,6 +215,8 @@ export default defineComponent({
         username: '',
         email: '',
         confirmEmail: '',
+        password: '',
+        confirmPassword: '',
         groups: '',
         userType: '',
         extensionOption: '',
@@ -204,13 +224,44 @@ export default defineComponent({
       },
     });
 
-    const onSubmit = handleSubmit((values) => {
+    const onSubmit = handleSubmit(async (values) => {
       console.log(values);
-      toast.success('Form submitted successfully!', {
-        position: 'top-right',
-        timeout: 3000,
-      });
-      resetForm();
+
+      try {
+        const token = getToken();
+
+        await api.post(
+          '/users',
+          {
+            first_name: values.firstName,
+            last_name: values.lastName,
+            login_name: values.username,
+            email: values.email,
+            role: {
+              id: 3,
+              name: 'BILLING_ADMINISTRATOR',
+              label: 'Billing Administrator',
+            },
+            password: values.password,
+          },
+
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+
+        toast.success('Form submitted successfully!', {
+          position: 'top-right',
+          timeout: 3000,
+        });
+
+        resetForm();
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        toast.error('Failed to submit form');
+      }
     });
 
     const router = useRouter();
@@ -260,6 +311,22 @@ export default defineComponent({
           type: 'email',
           label: 'Confirm Email*',
           placeholder: 'Confirm email',
+          required: true,
+        },
+        {
+          id: 'password',
+          model: 'password',
+          type: 'password',
+          label: 'Password*',
+          placeholder: 'Enter password for user',
+          required: true,
+        },
+        {
+          id: 'confirmPassword',
+          model: 'confirmPassword',
+          type: 'password',
+          label: 'Confirm Password*',
+          placeholder: 'Enter confirm password for user',
           required: true,
         },
       ],
@@ -433,6 +500,7 @@ select {
   }
 }
 .error-msg {
+  width: 500px;
   color: red;
   font-size: 0.9rem;
   margin-top: 5px;
