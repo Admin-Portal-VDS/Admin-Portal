@@ -2,7 +2,11 @@
   <main>
     <SectionTabs :sectionTabs="sectionTabs" />
     <SearchFilterBar />
-    <DataTable :columns="filteredColumns" :data="filteredData" />
+    <DataTable
+      :columns="filteredColumns"
+      :data="filteredData"
+      editType="user"
+    />
   </main>
 </template>
 
