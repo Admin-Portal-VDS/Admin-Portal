@@ -11,12 +11,20 @@ exports[`DataTable.vue matches snapshot 1`] = `
     </thead>
     <tbody>
       <tr class="table-data">
-        <td data-id="0-name">Alice</td>
-        <td data-id="0-age">30</td>
+        <td data-id="0-name" class="table-cell">Alice</td>
+        <td data-id="0-age" class="table-cell">
+          <div class="last-column"><span class="cell-text">30</span>
+            <!--v-if-->
+          </div>
+        </td>
       </tr>
       <tr class="table-data">
-        <td data-id="1-name">Bob</td>
-        <td data-id="1-age">25</td>
+        <td data-id="1-name" class="table-cell">Bob</td>
+        <td data-id="1-age" class="table-cell">
+          <div class="last-column"><span class="cell-text">25</span>
+            <!--v-if-->
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

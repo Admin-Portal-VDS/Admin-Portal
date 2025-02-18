@@ -19,13 +19,31 @@
           v-for="(row, rowIndex) in sortedData"
           :key="rowIndex"
           class="table-data"
+          @mouseover="hoveredRow = rowIndex"
+          @mouseleave="hoveredRow = null"
         >
           <td
             v-for="(column, colIndex) in columns"
             :key="colIndex"
             :data-id="`${rowIndex}-${column.key}`"
+            class="table-cell"
           >
-            {{ row[column.key] }}
+            <div v-if="colIndex === columns.length - 1" class="last-column">
+              <span class="cell-text">{{ row[column.key] }}</span>
+              <span v-if="hoveredRow === rowIndex" class="icons">
+                <i
+                  class="fas fa-edit edit-icon"
+                  @click="editUser(editType)"
+                ></i>
+                <i
+                  class="fas fa-user-plus group-icon"
+                  @click="addUserToGroup(editType)"
+                ></i>
+              </span>
+            </div>
+            <template v-else>
+              {{ row[column.key] }}
+            </template>
           </td>
         </tr>
       </tbody>
@@ -44,13 +62,21 @@ export default {
       type: Array,
       required: true,
     },
+    editType: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       sortKey: '',
       sortOrder: '',
+      hoveredRow: null,
     };
   },
+  // setup(){
+  //   const router=useRouter();
+  // },
   computed: {
     sortedData() {
       if (!this.sortKey) return this.data;
@@ -68,6 +94,12 @@ export default {
         this.sortKey = key;
         this.sortOrder = 'asc';
       }
+    },
+    editUser() {
+      this.$router.push(`/edit-${this.editType}-form`);
+    },
+    addUserToGroup() {
+      this.$router.push(`/edit-${this.editType}-form`);
     },
   },
 };
@@ -125,5 +157,50 @@ export default {
 
 .table-container th[data-sort='desc']:before {
   background-image: url('/public/assets/down-arrow.svg');
+}
+
+.last-column {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.icons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 4px;
+  border-radius: 5px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.table-data:hover .icons {
+  opacity: 1;
+}
+
+.edit-icon {
+  cursor: pointer;
+  color: #454446;
+  font-size: 18px;
+}
+
+.edit-icon:hover {
+  color: #050505;
+}
+
+.group-icon {
+  cursor: pointer;
+  color: #454446;
+  font-size: 18px;
+}
+
+.group-icon:hover {
+  color: #050505;
 }
 </style>
